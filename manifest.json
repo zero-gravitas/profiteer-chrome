@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Profiteer",
+  "description": "Supporting extension for the Profiteer Path of Exile utility.",
+  "version": "0.1",
+
+  "permissions": [
+    "http://www.pathofexile.com/"
+  ],
+
+  "externally_connectable": {
+    "matches": ["*://localhost/*"]
+  },
+
+  "background": {
+    "scripts": ["requests.js"],
+    "persistent": false
+  }
+}
