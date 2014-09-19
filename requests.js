@@ -12,18 +12,21 @@ chrome.runtime.onMessageExternal.addListener(
 
     xhr.onreadystatechange = function() {
       if (this.readyState == 4) {
+        // TODO: Handle errors better
         sendResponse({"status": "success",
                       "result": JSON.parse(this.responseText)});
       }
     };
 
-    var postData = new FormData();
-    xhr.open("POST", "http://www.pathofexile.com/".concat(route), true);
-    xhr.withCredentials = true;
+    var url = "http://www.pathofexile.com/".concat(route) + "?"
     for (var key in params) {
-      postData.append(key, params[key]);
+      url += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) +
+        "&";
     }
-    xhr.send(postData);
+
+    xhr.open("GET", url, true);
+    xhr.withCredentials = true;
+    xhr.send();
     // Return true to indicate async.
     return true;
   });
